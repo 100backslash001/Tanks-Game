@@ -21,3 +21,8 @@ This is simple tank game for two player.
 ## BUILD:
  &nbsp;&nbsp;&nbsp;&nbsp;**`make build`**- build game files\
  &nbsp;&nbsp;&nbsp;&nbsp;**`make run`**&nbsp;&nbsp;&nbsp;&nbsp;- build files and run builded game
+
+## SCREENSHOTS:
+\
+![Снимок экрана от 2023-02-27 11-03-47](https://user-images.githubusercontent.com/44364093/221496670-db587bde-a85c-4563-88f5-d07977e53091.png)\
+![Снимок экрана от 2023-02-27 11-04-11](https://user-images.githubusercontent.com/44364093/221496682-898b2b22-73b4-47a4-ab11-bd30935b69bb.png)
