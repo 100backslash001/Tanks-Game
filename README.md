@@ -1,4 +1,4 @@
-# SDL2_Tanks_Game
+# Tanks Game
 This is simple tank game for two player.
 
 ## CONTROL:
