@@ -350,6 +350,11 @@ void render() {
   renderText( renderer, p2_ammo_amount.c_str(), 810, 500, 200, 80, { 255, 255, 255, 255 } );
 
   renderText( renderer, score.c_str(), WIDTH / 2 - 30, 500, 60, 60, { 255, 0, 0, 255 } );
+
+  // Destroy texture as it is creating every frame
+  
+  SDL_DestroyTexture( text_texture );
+  text_texture = nullptr;
   
   SDL_RenderPresent( renderer );
   
@@ -385,8 +390,8 @@ void close()
   Mix_FreeMusic( main_music );
   main_music = nullptr;
 
-  SDL_DestroyTexture( text_texture );
-  text_texture = nullptr;
+  //SDL_DestroyTexture( text_texture );
+  //text_texture = nullptr;
   TTF_CloseFont( font );
   font = nullptr;
   
