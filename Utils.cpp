@@ -5,7 +5,7 @@ SDL_Texture* Utils::loadTexture( SDL_Renderer* renderer, std::string path_to_fil
   SDL_Texture* texture = SDL_CreateTextureFromSurface( renderer, tmp );
 
   SDL_FreeSurface( tmp );
-  tmp = NULL;
+  tmp = nullptr;
 
   return texture;
 }

@@ -35,11 +35,11 @@ Tank::~Tank() {
   
   for ( int i = 0; i < (int)sizeof( this->texture ) / (int)sizeof( *this->texture ); i++ ) {
     SDL_DestroyTexture( this->texture[i] );
-    this->texture[i] = NULL;
+    this->texture[i] = nullptr;
   }
 
   SDL_DestroyRenderer( this->renderer );
-  this->renderer = NULL;
+  this->renderer = nullptr;
 }
 
 /*
@@ -48,7 +48,7 @@ Tank::~Tank() {
 
 void Tank::draw() {
 
-  SDL_RenderCopy( this->renderer, this->texture[this->dir], NULL, &this->transform );
+  SDL_RenderCopy( this->renderer, this->texture[this->dir], nullptr, &this->transform );
     
 }
 

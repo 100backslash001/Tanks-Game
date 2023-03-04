@@ -3,10 +3,10 @@
 #include "Bullet.hpp"
 #include <stdio.h>
 
-SDL_Window* window = NULL;
-SDL_Renderer* renderer = NULL;
+SDL_Window* window = nullptr;
+SDL_Renderer* renderer = nullptr;
 
-SDL_Texture* background = NULL;
+SDL_Texture* background = nullptr;
 SDL_Rect background_rect = { 0, 0, WIDTH, HEIGHT };
 
 // Walls on map that prohibit ride on it
@@ -21,10 +21,10 @@ SDL_Rect props[] = {
   { 14, 408, 43, 51 },
 };
 
-Tank* first_player = NULL;
+Tank* first_player = nullptr;
 std::vector<Bullet*> first_player_bullets;
 
-Tank* second_player = NULL;
+Tank* second_player = nullptr;
 std::vector<Bullet*> second_player_bullets;
 
 int ammo_spawn_pos[12][2] = {
@@ -42,7 +42,7 @@ int ammo_spawn_pos[12][2] = {
   { 380, 370 }
 };
 int element = std::rand() % 12;
-SDL_Texture* ammo = NULL;
+SDL_Texture* ammo = nullptr;
 SDL_Rect ammo_rect = {
   ammo_spawn_pos[element][0],
   ammo_spawn_pos[element][1],
@@ -52,8 +52,8 @@ SDL_Rect ammo_rect = {
 
 // Variables for text rendering
 
-SDL_Texture* text_texture = NULL;
-TTF_Font* font = NULL;
+SDL_Texture* text_texture = nullptr;
+TTF_Font* font = nullptr;
 
 // Scores' black rect
 
@@ -64,11 +64,11 @@ SDL_Rect p2_icon = { WIDTH / 2 + 35, 520, 20, 20 };
 
 // Variables for sounds
 
-Mix_Music* main_music = NULL;
+Mix_Music* main_music = nullptr;
 
-Mix_Chunk* shot_sound = NULL;
-Mix_Chunk* pickup_sound = NULL;
-Mix_Chunk* explosion_sound = NULL;
+Mix_Chunk* shot_sound = nullptr;
+Mix_Chunk* pickup_sound = nullptr;
+Mix_Chunk* explosion_sound = nullptr;
 
 bool init() {
 
@@ -79,14 +79,14 @@ bool init() {
 
   window = SDL_CreateWindow( "Tanks", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN );
 
-  if ( window == NULL ) {
+  if ( window == nullptr ) {
     printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() );
     return false;
   }
   
   renderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED );
 
-  if ( renderer == NULL ) {
+  if ( renderer == nullptr ) {
     printf( "Renderer could not be created! SDL_Error: %s\n", SDL_GetError() );
     return false;
   }
@@ -100,7 +100,7 @@ bool init() {
 
   font = TTF_OpenFont( "./Assets/main_font.ttf", 38 );
 
-  if ( font == NULL ) {
+  if ( font == nullptr ) {
     printf( "Could not open font! TTF_Error: %s\n", TTF_GetError() );
     return false;
   }
@@ -112,7 +112,7 @@ bool init() {
 
   main_music = Mix_LoadMUS( "./Assets/back_music.wav" );
 
-  if ( main_music == NULL ) {
+  if ( main_music == nullptr ) {
     printf( "Unable to load music: %s! SDL_mixer Error: %s\n", "back_music.wav", Mix_GetError() );
   }
 
@@ -120,7 +120,7 @@ bool init() {
   pickup_sound = Mix_LoadWAV( "./Assets/pickup_sound.wav" );
   explosion_sound = Mix_LoadWAV( "./Assets/explosion_sound.wav" );
 
-  if ( shot_sound == NULL || pickup_sound == NULL || explosion_sound == NULL ) {
+  if ( shot_sound == nullptr || pickup_sound == nullptr || explosion_sound == nullptr ) {
     printf( "Unable to load sound %s! SDL_mixer Error: %s\n", "shot_sound.wav or pickup_sound.wav or explosion_sound.wav", Mix_GetError() );
     return false;
   }
@@ -135,7 +135,7 @@ bool init() {
 			  ammo_spawn_pos[element][1]
 			  );
 
-  if ( first_player == NULL )
+  if ( first_player == nullptr )
     return false;
 
   element = std::rand() % 12;
@@ -147,12 +147,12 @@ bool init() {
 			   "second_player"
 			   );
 
-  if ( second_player == NULL )
+  if ( second_player == nullptr )
     return false;
 
   ammo = Utils::loadTexture( renderer, "./Assets/spawn_ammo.bmp" );
 
-  if ( ammo == NULL )
+  if ( ammo == nullptr )
     return false;
   
   return true;
@@ -165,7 +165,7 @@ void renderText( SDL_Renderer* renderer, std::string text, int x, int y, int w, 
   text_texture = SDL_CreateTextureFromSurface( renderer, surf );
 
   SDL_FreeSurface( surf );
-  surf = NULL;
+  surf = nullptr;
 
   SDL_Rect text_box;
   text_box.x = x;
@@ -173,7 +173,7 @@ void renderText( SDL_Renderer* renderer, std::string text, int x, int y, int w, 
   text_box.w = w;
   text_box.h = h;
 
-  SDL_RenderCopy( renderer, text_texture, NULL, &text_box );
+  SDL_RenderCopy( renderer, text_texture, nullptr, &text_box );
 }
 
 bool inputLogic( SDL_Event e ) {
@@ -206,7 +206,7 @@ bool inputLogic( SDL_Event e ) {
     }
   }
 
-  const Uint8* key_states = SDL_GetKeyboardState( NULL );
+  const Uint8* key_states = SDL_GetKeyboardState( nullptr );
 
   first_player->control( key_states, "P1", props, (sizeof(props)/sizeof(*props)) );
 
@@ -311,7 +311,7 @@ void render() {
   SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
   SDL_RenderClear( renderer );
 
-  SDL_RenderCopy( renderer, background, NULL, &background_rect );
+  SDL_RenderCopy( renderer, background, nullptr, &background_rect );
 
   SDL_SetRenderDrawColor( renderer, 0, 0, 0, 200 );
   
@@ -326,7 +326,7 @@ void render() {
 
   SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
 
-  SDL_RenderCopy( renderer, ammo, NULL, &ammo_rect );
+  SDL_RenderCopy( renderer, ammo, nullptr, &ammo_rect );
   
   for ( int i = 0; i < (int)first_player_bullets.size(); i++ ) {
     first_player_bullets[i]->spawn( first_player->dir );
@@ -379,16 +379,16 @@ void close()
 
   Mix_FreeChunk( shot_sound );
   Mix_FreeChunk( pickup_sound );
-  shot_sound = NULL;
-  pickup_sound = NULL;
+  shot_sound = nullptr;
+  pickup_sound = nullptr;
 
   Mix_FreeMusic( main_music );
-  main_music = NULL;
+  main_music = nullptr;
 
   SDL_DestroyTexture( text_texture );
-  text_texture = NULL;
+  text_texture = nullptr;
   TTF_CloseFont( font );
-  font = NULL;
+  font = nullptr;
   
   SDL_DestroyTexture( ammo );
   delete second_player;
@@ -397,12 +397,12 @@ void close()
   SDL_DestroyRenderer( renderer );
   SDL_DestroyWindow( window );
   
-  ammo = NULL;
-  second_player = NULL;
-  first_player = NULL;
-  background = NULL;
-  renderer = NULL;
-  window = NULL;
+  ammo = nullptr;
+  second_player = nullptr;
+  first_player = nullptr;
+  background = nullptr;
+  renderer = nullptr;
+  window = nullptr;
 
   Mix_Quit();
   TTF_Quit();

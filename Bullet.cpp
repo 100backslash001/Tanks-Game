@@ -13,16 +13,16 @@ Bullet::~Bullet() {
   
   for ( int i = 0; i < (int)sizeof( this->texture ) / (int)sizeof( *this->texture ); i++ ) {
     SDL_DestroyTexture( this->texture[i] );
-    this->texture[i] = NULL;
+    this->texture[i] = nullptr;
   }
 
   SDL_DestroyRenderer( this->renderer );
-  this->renderer = NULL;
+  this->renderer = nullptr;
 }
 
 void Bullet::spawn( int tank_dir ) {
 
-  SDL_RenderCopy( this->renderer, this->texture[tank_dir], NULL, &this->transform );
+  SDL_RenderCopy( this->renderer, this->texture[tank_dir], nullptr, &this->transform );
   
 }
 
