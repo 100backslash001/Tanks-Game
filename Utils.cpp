@@ -10,7 +10,7 @@ SDL_Texture* Utils::loadTexture( SDL_Renderer* renderer, std::string path_to_fil
   return texture;
 }
 
-bool Utils::check_collision( SDL_Rect& object, SDL_Rect& collide_with, std::string direction ) {
+bool Utils::check_collision( SDL_Rect& object, SDL_Rect& collide_with, Direction direction ) {
 
   int colliderLeft, objectLeft;
   int colliderRight, objectRight;
@@ -28,22 +28,22 @@ bool Utils::check_collision( SDL_Rect& object, SDL_Rect& collide_with, std::stri
   objectTop = collide_with.y;
   objectBottom = collide_with.y + collide_with.h + 5;
 
-  if ( direction == "UP" ) {
+  if ( direction == Direction::UP ) {
     if ( colliderTop >= objectBottom - 1 || colliderLeft >= objectRight - 8 || colliderRight <= objectLeft + 4 || colliderBottom <= objectTop + 5 ) {
       return false;
     }
   }
-  else if ( direction == "DOWN" ) {
+  else if ( direction == Direction::DOWN ) {
     if ( colliderBottom <= objectTop - 2 || colliderLeft >= objectRight - 8 || colliderRight <= objectLeft + 4 || colliderTop >= objectBottom - 6 ) {
       return false;
     }
   }
-  else if ( direction == "LEFT" ) {
+  else if ( direction == Direction::LEFT ) {
     if ( colliderLeft >= objectRight - 3 || colliderTop >= objectBottom - 6 || colliderBottom <= objectTop + 5 || colliderRight <= objectLeft + 4 ) {
       return false;
     }
   }
-  else if ( direction == "RIGHT" ) {
+  else if ( direction == Direction::RIGHT ) {
     if ( colliderRight <= objectLeft || colliderTop >= objectBottom - 6 || colliderBottom <= objectTop + 5 || colliderLeft >= objectRight - 8 ) {
       return false;
     }

@@ -124,30 +124,30 @@ bool Bullet::is_hit( SDL_Rect& tank ) {
   4: Right
 */
 
-void Bullet::set_direction( int dir, SDL_Rect& gun ) {
+void Bullet::set_direction( Utils::Direction direction, SDL_Rect& gun ) {
   
-  if ( dir == 0 ) {
+  if ( direction == Utils::Direction::UP ) {
     this->bullet_dir = UP_fire;
     this->_resize();
     this->setX( gun.x + gun.w / 2 - this->getWidth() / 2 );
     this->setY( gun.y );
   }
 
-  if ( dir == 1 ) {
+  if ( direction == Utils::Direction::DOWN ) {
     this->bullet_dir = DOWN_fire;
     this->_resize();
     this->setX( gun.x + gun.w / 2 - this->getWidth() / 2 );
     this->setY( gun.y + gun.h );
   }
 
-  if ( dir == 2 ) {
+  if ( direction == Utils::Direction::LEFT ) {
     this->bullet_dir = LEFT_fire;
     this->_resize();
     this->setX( gun.x );
     this->setY( gun.y + gun.h / 2 - this->getHeight() / 2 );
   }
 
-  if ( dir == 3 ) {
+  if ( direction == Utils::Direction::RIGHT ) {
     this->bullet_dir = RIGHT_fire;
     this->_resize();
     this->setX( gun.x + gun.w );

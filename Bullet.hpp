@@ -24,7 +24,7 @@ public:
 
   bool is_hit( SDL_Rect objects[], int array_length );
   bool is_hit( SDL_Rect& tank );
-  void set_direction( int dir, SDL_Rect& gun );
+  void set_direction( Utils::Direction dir, SDL_Rect& gun );
   void send();
 
 private:

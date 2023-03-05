@@ -58,7 +58,7 @@ TTF_Font* font = nullptr;
 // Scores' black rect
 
 SDL_Rect p1_score_rect = { 12, 510, 215, 60 };
-SDL_Rect p2_score_rect = { 803, 510, 215, 60 };
+SDL_Rect p2_score_rect = { 799, 510, 215, 60 };
 SDL_Rect p1_icon = { WIDTH / 2 - 55, 520, 20, 20 };
 SDL_Rect p2_icon = { WIDTH / 2 + 35, 520, 20, 20 };
 
@@ -132,7 +132,8 @@ bool init() {
   first_player = new Tank(
 			  renderer,
 			  ammo_spawn_pos[element][0],
-			  ammo_spawn_pos[element][1]
+			  ammo_spawn_pos[element][1],
+			  Tank::Player_type::Player_1
 			  );
 
   if ( first_player == nullptr )
@@ -144,7 +145,7 @@ bool init() {
 			   renderer,
 			   ammo_spawn_pos[element][0],
 			   ammo_spawn_pos[element][1],
-			   "second_player"
+			   Tank::Player_type::Player_2
 			   );
 
   if ( second_player == nullptr )
@@ -208,9 +209,9 @@ bool inputLogic( SDL_Event e ) {
 
   const Uint8* key_states = SDL_GetKeyboardState( nullptr );
 
-  first_player->control( key_states, "P1", props, (sizeof(props)/sizeof(*props)) );
+  first_player->control( key_states, props, (sizeof(props)/sizeof(*props)) );
 
-  second_player->control( key_states, "P2", props, (sizeof(props)/sizeof(*props)) );
+  second_player->control( key_states, props, (sizeof(props)/sizeof(*props)) );
 
   return false;
 }
@@ -225,7 +226,7 @@ void gameLogic() {
   
   if ( first_player->getState() ) {
     Bullet* bullet = new Bullet( renderer );
-    bullet->set_direction( first_player->dir, first_player->getRect() );
+    bullet->set_direction( static_cast<Utils::Direction>( first_player->dir ), first_player->getRect() );
     first_player_bullets.push_back( bullet );
     first_player->setState( false );
   }
@@ -256,7 +257,7 @@ void gameLogic() {
 
   if ( second_player->getState() ) {
     Bullet* bullet = new Bullet( renderer );
-    bullet->set_direction( second_player->dir, second_player->getRect() );
+    bullet->set_direction( static_cast<Utils::Direction>( second_player->dir ), second_player->getRect() );
     second_player_bullets.push_back( bullet );
     second_player->setState( false );
   }

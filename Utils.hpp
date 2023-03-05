@@ -17,8 +17,10 @@ class Utils {
 
 public:
 
+  enum Direction { UP, DOWN, LEFT, RIGHT };
+
   static SDL_Texture* loadTexture( SDL_Renderer* renderer, std::string path_to_file );
-  static bool check_collision( SDL_Rect& object, SDL_Rect& collide_with, std::string direction );
+  static bool check_collision( SDL_Rect& object, SDL_Rect& collide_with, Direction direction );
   static bool check_collision( SDL_Rect& object, SDL_Rect& collide_with );
   static bool check_collision( SDL_Rect& object, std::vector<SDL_Rect> collide_with );
 

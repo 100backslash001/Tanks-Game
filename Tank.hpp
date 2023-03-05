@@ -3,10 +3,11 @@
 class Tank {
 
 public:
-  Tank( SDL_Renderer* ren, int x, int y, std::string type = "main" );
-  ~Tank();
-
   enum Directions { UP, DOWN, LEFT, RIGHT } dir;
+  enum Player_type { Player_1, Player_2 } type;
+  
+  Tank( SDL_Renderer* ren, int x, int y, Player_type type );
+  ~Tank();
 
   struct Vector2 {
     float x;
@@ -14,7 +15,7 @@ public:
   } movement;
 
   void draw();
-  void control( const Uint8* key_states, std::string control_type, SDL_Rect objects[], int objects_amount );
+  void control( const Uint8* key_states, SDL_Rect objects[], int objects_amount );
   void fire();
 
   int getX();

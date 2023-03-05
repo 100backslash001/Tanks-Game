@@ -1,9 +1,10 @@
 #include "Tank.hpp"
 
-Tank::Tank( SDL_Renderer* ren, int x, int y, std::string type ) {
+Tank::Tank( SDL_Renderer* ren, int x, int y, Player_type type ) {
   this->renderer = ren;
+  this->type = type;
 
-  if ( type == "main" ) {
+  if ( type == Player_type::Player_1 ) {
     
     this->transform = { x, y, 30, 30 };
     this->texture[0] = Utils::loadTexture( renderer, "./Assets/main_tank.bmp" );
@@ -63,7 +64,7 @@ void Tank::_move_up( SDL_Rect objects[], int array_length ) {
   bool is_colided = false;
   
   for ( int i = 0; i < array_length; i++ ) {
-    is_colided = Utils::check_collision( this->getRect(), objects[i], "UP" );
+    is_colided = Utils::check_collision( this->getRect(), objects[i], Utils::Direction::UP );
 
     if ( is_colided ) {
       break;
@@ -90,7 +91,7 @@ void Tank::_move_down( SDL_Rect objects[], int array_length ) {
   bool is_colided = false;
   
   for ( int i = 0; i < array_length; i++ ) {
-    is_colided = Utils::check_collision( this->getRect(), objects[i], "DOWN" );
+    is_colided = Utils::check_collision( this->getRect(), objects[i], Utils::Direction::DOWN );
 
     if ( is_colided ) {
       break;
@@ -117,7 +118,7 @@ void Tank::_move_left( SDL_Rect objects[], int array_length ) {
   bool is_colided = false;
   
   for ( int i = 0; i < array_length; i++ ) {
-    is_colided = Utils::check_collision( this->getRect(), objects[i], "LEFT" );
+    is_colided = Utils::check_collision( this->getRect(), objects[i], Utils::Direction::LEFT );
     
     if ( is_colided ) {
       break;
@@ -144,7 +145,7 @@ void Tank::_move_right( SDL_Rect objects[], int array_length ) {
   bool is_colided = false;
   
   for ( int i = 0; i < array_length; i++ ) {
-    is_colided = Utils::check_collision( this->getRect(), objects[i], "RIGHT" );
+    is_colided = Utils::check_collision( this->getRect(), objects[i], Utils::Direction::RIGHT );
 
     if ( is_colided ) {
       break;
@@ -276,9 +277,9 @@ void Tank::addScore() {
   this->score += 1;
 }
 
-void Tank::control( const Uint8* key_states, std::string control_type, SDL_Rect objects[], int objects_amount ) {
+void Tank::control( const Uint8* key_states, SDL_Rect objects[], int objects_amount ) {
 
-  if ( control_type == "P1" ) {
+  if ( this->type == Player_type::Player_1 ) {
 
     if ( key_states[SDL_SCANCODE_W] && !( key_states[SDL_SCANCODE_A] || key_states[SDL_SCANCODE_D] ) ) this->_move_up( objects, objects_amount );
     if ( key_states[SDL_SCANCODE_S] && !( key_states[SDL_SCANCODE_A] || key_states[SDL_SCANCODE_D] ) ) this->_move_down( objects, objects_amount );
@@ -287,12 +288,12 @@ void Tank::control( const Uint8* key_states, std::string control_type, SDL_Rect 
     
   }
 
-  if ( control_type == "P2" ) {
+  if ( this->type == Player_type::Player_2 ) {
 
     if ( key_states[SDL_SCANCODE_KP_8] && !( key_states[SDL_SCANCODE_KP_4] || key_states[SDL_SCANCODE_KP_6] ) ) this->_move_up( objects, objects_amount );
     if ( key_states[SDL_SCANCODE_KP_5] && !( key_states[SDL_SCANCODE_KP_4] || key_states[SDL_SCANCODE_KP_6] ) ) this->_move_down( objects, objects_amount );
     if ( key_states[SDL_SCANCODE_KP_4] && !( key_states[SDL_SCANCODE_KP_8] || key_states[SDL_SCANCODE_KP_5] ) ) this->_move_left( objects, objects_amount );
     if ( key_states[SDL_SCANCODE_KP_6] && !( key_states[SDL_SCANCODE_KP_8] || key_states[SDL_SCANCODE_KP_5] ) ) this->_move_right( objects, objects_amount );
-    
+
   }
 }
